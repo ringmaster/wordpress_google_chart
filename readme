@@ -1,0 +1,23 @@
+Here's the basic process:
+1) Create a post.
+2) Click the media button above the editor to open the upload box.
+3) Upload a CSV file.
+4) Click the "CSV as Chart" button to generate the shortcode in the Link URL field.
+5) Add any graph options to the Graph Options box in JSON format.
+6) Click Insert into Post.
+7) Publish the post.
+
+The CSV should then be rendered as a chart in the post output.
+
+You can change the type of chart used by specifying this as a new attribute on the shorttag.  For example:
+
+[chart data=26 ref=tracing_time_gender type=LineChart]
+
+The value of the "ref" argument is irrelevant, only the data number is used to connect the CSV to the output, but since there is no way to correlate the filename from the shorttag (at least that I could find), it seemed useful to include this if only for reference by the author.  While it's technically possible to display the chart for an attachment of a different post by specifying a different data index, I didn't do any testing with this.
+
+Graph options added on the attachment page should be in JSON format, like this:
+{colors: ['#c7cfc7', '#b2c8b2', '#d9e0de', '#cdded1']}
+
+These options are saved with the attachment.  If you want to change the options, open the media browser and select the appropriate attachment from the Gallery tab.
+
+Improvements might make some basic chart options more easily editable (such as selecting colors using a color-picker), and allow a selection from available chart types.
