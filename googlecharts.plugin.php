@@ -13,7 +13,6 @@ class GoogleChartsPlugin {
 	const MY_PLUGIN_VERSION = '1.0';
 
 	public function __construct() {
-		add_action('wp_enqueue_scripts', array($this, 'action_wp_enqueue_scripts'));
 		add_shortcode( 'chart', array($this, 'shortcode_chart') );
 		add_filter('media_send_to_editor', array($this, 'filter_media_send_to_editor'), 10, 3);
 		add_filter('attachment_fields_to_edit', array($this, 'filter_attachment_fields_to_edit'), 10, 2);
@@ -56,11 +55,6 @@ class GoogleChartsPlugin {
 			$html = $matches[0];
 		}
 		return $html;
-	}
-
-	public function action_wp_enqueue_scripts() {
-		wp_enqueue_script('jquery');
-		wp_enqueue_script('google-jsapi', 'https://www.google.com/jsapi');
 	}
 
 	public function shortcode_chart($attributes) {
