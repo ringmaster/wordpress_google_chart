@@ -87,18 +87,14 @@ class GoogleChartsPlugin {
 		else {
 			$chart_dom_id = 'chart_' . sprintf('%x', crc32(json_encode($data)));
 		}
-		$output = '<div id="' . $chart_dom_id . '"></div><script type="text/javascript">
-		var googleCharts = googleCharts ? googleCharts : [];
-		var googleChartLoaded = function(){
-			for(var i in googleCharts) {
-				googleCharts[i]();
-			}
-		}
-		jQuery(function(){
-			google.load("visualization", "1.0", {packages:["corechart"], callback:googleChartLoaded});
-		});
-		googleCharts.push(function(){
-		var data = new google.visualization.DataTable();';
+		$output = <<< CHART_JS_INIT
+<div id="{$chart_dom_id}"></div>
+<script type="text/javascript">
+	function loadScript(c,a){var b=document.createElement("script");b.type="text/javascript";b.readyState?b.onreadystatechange=function(){if("loaded"==b.readyState||"complete"==b.readyState)b.onreadystatechange=null,a()}:b.onload=function(){a()};b.src=c;document.getElementsByTagName("head")[0].appendChild(b)}if("undefined"===typeof googleCallbacks)var googleCallbacks=[];function googleChartLoaded(){googleCoreChartLoaded=!0;for(var c=googleCallbacks.length,a=0;a<c;a++)googleCallbacks[a]()}
+	function googleLoadCallback(c){if("undefined"===typeof a){var a=!1;loadScript("https://www.google.com/jsapi",function(){google.load("visualization","1.0",{packages:["corechart"],callback:googleChartLoaded})})}a?c():googleCallbacks.push(c)};
+	googleLoadCallback(function(){
+	var data = new google.visualization.DataTable();
+CHART_JS_INIT;
 		foreach($names as $name) {
 			$output .= 'data.addColumn("' . current($types) . '", "' . $name . '");';
 			next($types);
